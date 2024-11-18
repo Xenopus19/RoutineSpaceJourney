@@ -40,7 +40,7 @@ ARSJCharacter::ARSJCharacter()
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
 	GetCharacterMovement()->BrakingDecelerationFalling = 1500.0f;
 
-	
+	CameraDistanceToPlayer = 700;
 }
 
 void ARSJCharacter::BeginPlay()
@@ -54,7 +54,7 @@ void ARSJCharacter::BeginPlay()
 	AStaticCameraActor* StaticCamera = GetWorld()->SpawnActor<AStaticCameraActor>(AStaticCameraActor::StaticClass(), SpawnParams);
 	if (StaticCamera)
 	{
-		StaticCamera->SetActorLocation(GetActorLocation() + FVector(0.f, 0.f, 500.f));
+		StaticCamera->SetActorLocation(GetActorLocation() + FVector(0.f, 0.f, CameraDistanceToPlayer));
 		StaticCamera->SetActorRotation(FRotator(-90.f, 0.f, 0.f));
 		if (APlayerController* PlayerController = Cast<APlayerController>(GetController()))
 		{
@@ -81,15 +81,12 @@ void ARSJCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 	// Set up action bindings
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent)) {
 		
-		// Jumping
-		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ACharacter::Jump);
-		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
+		//EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ACharacter::Jump);
+		//EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
 
-		// Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ARSJCharacter::Move);
 
-		// Looking
-		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ARSJCharacter::Look);
+		//EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ARSJCharacter::Look);
 	}
 	else
 	{
@@ -115,8 +112,8 @@ void ARSJCharacter::Move(const FInputActionValue& Value)
 		const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 
 		// add movement 
-		AddMovementInput(ForwardDirection, MovementVector.Y);
-		AddMovementInput(RightDirection, MovementVector.X);
+		AddMovementInput(ForwardDirection, MovementVector.X);
+		AddMovementInput(RightDirection, -1*MovementVector.Y);
 	}
 }
 

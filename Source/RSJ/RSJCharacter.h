@@ -38,6 +38,9 @@ class ARSJCharacter : public ACharacter
 
 public:
 	ARSJCharacter();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float CameraDistanceToPlayer;
 	
 
 protected:

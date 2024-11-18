@@ -20,7 +20,6 @@ AStaticCameraActor::AStaticCameraActor()
 void AStaticCameraActor::BeginPlay()
 {
 	Super::BeginPlay();
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("This is an on screen message!"));
 }
 
 // Called every frame
