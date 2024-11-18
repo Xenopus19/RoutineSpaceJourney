@@ -4,10 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "GameFramework/ProjectileMovementComponent.h"
+#include "ContactDamageComponent.h"
 #include "Bullet.generated.h"
 
 class USphereComponent;
-
+class UProjectileMovementComponent;
 UCLASS()
 class RSJ_API ABullet : public AActor
 {
@@ -25,9 +27,12 @@ public:
 
 	virtual void Tick(float DeltaTime) override;
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Collision")
-    class USphereComponent* CollisionSphere;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mesh")
+    UPROPERTY(EditAnywhere)
     class UStaticMeshComponent* BulletMesh;
+
+	UPROPERTY(EditAnywhere)
+	UProjectileMovementComponent* ProjectileComponent;
+
+	UPROPERTY(EditAnywhere)
+	class UContactDamageComponent* ContactDamage;
 };
