@@ -11,6 +11,7 @@ class USpringArmComponent;
 class UCameraComponent;
 class UInputMappingContext;
 class UInputAction;
+class AStaticCameraActor;
 struct FInputActionValue;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
@@ -58,5 +59,10 @@ protected:
 	
 	// To add mapping context
 	virtual void BeginPlay();
+
+private:
+
+	AStaticCameraActor* StaticCamera;
+
 };
 

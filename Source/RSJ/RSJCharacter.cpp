@@ -51,7 +51,7 @@ void ARSJCharacter::BeginPlay()
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.Owner = this;
 	SpawnParams.Instigator = GetInstigator();
-	AStaticCameraActor* StaticCamera = GetWorld()->SpawnActor<AStaticCameraActor>(AStaticCameraActor::StaticClass(), SpawnParams);
+	StaticCamera = GetWorld()->SpawnActor<AStaticCameraActor>(AStaticCameraActor::StaticClass(), SpawnParams);
 	if (StaticCamera)
 	{
 		StaticCamera->SetActorLocation(GetActorLocation() + FVector(0.f, 0.f, CameraDistanceToPlayer));
@@ -63,7 +63,6 @@ void ARSJCharacter::BeginPlay()
 		}
 	}
 }
-
 //////////////////////////////////////////////////////////////////////////
 // Input
 
