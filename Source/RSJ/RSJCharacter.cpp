@@ -41,6 +41,8 @@ ARSJCharacter::ARSJCharacter()
 	GetCharacterMovement()->BrakingDecelerationFalling = 1500.0f;
 
 	CameraDistanceToPlayer = 700;
+
+	HealthComponent = CreateDefaultSubobject<URSJHealthComponent>(TEXT("HealthComponent"));
 }
 
 void ARSJCharacter::BeginPlay()

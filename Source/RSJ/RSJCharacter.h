@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
+#include "RSJHealthComponent.h"
 #include "RSJCharacter.generated.h"
 
 class USpringArmComponent;
@@ -12,6 +13,7 @@ class UCameraComponent;
 class UInputMappingContext;
 class UInputAction;
 class AStaticCameraActor;
+class RSJHealthComponent;
 struct FInputActionValue;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
@@ -60,8 +62,10 @@ protected:
 	// To add mapping context
 	virtual void BeginPlay();
 
-private:
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	URSJHealthComponent* HealthComponent;
 
+private:
 	AStaticCameraActor* StaticCamera;
 
 };
