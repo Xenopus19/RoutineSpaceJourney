@@ -14,25 +14,18 @@
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
-//////////////////////////////////////////////////////////////////////////
-// ARSJCharacter
 
 ARSJCharacter::ARSJCharacter()
 {
-	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 		
-	// Don't rotate when the controller rotates. Let that just affect the camera.
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
 
-	// Configure character movement
-	GetCharacterMovement()->bOrientRotationToMovement = false; // Character moves in the direction of input...	
-	GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.0f, 0.0f); // ...at this rotation rate
+	GetCharacterMovement()->bOrientRotationToMovement = false; 
+	GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.0f, 0.0f);
 
-	// Note: For faster iteration times these variables, and many more, can be tweaked in the Character Blueprint
-	// instead of recompiling to adjust them
 	GetCharacterMovement()->JumpZVelocity = 700.f;
 	GetCharacterMovement()->AirControl = 0.35f;
 	GetCharacterMovement()->MaxWalkSpeed = 500.f;
@@ -43,6 +36,14 @@ ARSJCharacter::ARSJCharacter()
 	CameraDistanceToPlayer = 700;
 
 	HealthComponent = CreateDefaultSubobject<URSJHealthComponent>(TEXT("HealthComponent"));
+
+	Model = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
+	Model->SetMobility(EComponentMobility::Movable);
+	Model->SetupAttachment(RootComponent);
+
+	ShootingComponent = CreateDefaultSubobject<UShootingComponent>(TEXT("ShootingComponent"));
+	ShootingComponent->SetMobility(EComponentMobility::Movable);
+	ShootingComponent->SetupAttachment(Model);
 }
 
 void ARSJCharacter::BeginPlay()
@@ -65,8 +66,6 @@ void ARSJCharacter::BeginPlay()
 		}
 	}
 }
-//////////////////////////////////////////////////////////////////////////
-// Input
 
 void ARSJCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -86,6 +85,8 @@ void ARSJCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 		//EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
 
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ARSJCharacter::Move);
+
+		EnhancedInputComponent->BindAction(ShootAction, ETriggerEvent::Ongoing, this, &ARSJCharacter::Shoot);
 
 		//EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ARSJCharacter::Look);
 	}
@@ -129,4 +130,9 @@ void ARSJCharacter::Look(const FInputActionValue& Value)
 		AddControllerYawInput(LookAxisVector.X);
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
+}
+
+void ARSJCharacter::Shoot()
+{
+	ShootingComponent->Shoot();
 }
