@@ -26,6 +26,7 @@ void UShootingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 
 void UShootingComponent::Shoot()
 {
+    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Bullet spawned!"));
     if (TimeSinceLastShot < FireRate)
     {
         return;
@@ -42,9 +43,10 @@ void UShootingComponent::Shoot()
             if (SpawnedBullet)
             {
                 GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Bullet spawned!"));
+                TimeSinceLastShot = 0.0f;
             }
         }
     }
-    TimeSinceLastShot = 0.0f;
+    
 }
 
