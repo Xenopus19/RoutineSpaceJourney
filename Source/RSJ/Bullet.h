@@ -23,6 +23,9 @@ protected:
 
 	virtual void BeginPlay() override;
 
+	UFUNCTION(BlueprintCallable)
+	void OnBulletHit();
+
 public:	
 
 	virtual void Tick(float DeltaTime) override;

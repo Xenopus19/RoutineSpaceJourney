@@ -35,6 +35,7 @@ void UContactDamageComponent::OnHit(UPrimitiveComponent* HitComponent, AActor* O
 	if (health)
 	{
 		health->DecreaseHealth(Damage);
+		OnHitEvent.Broadcast();
 	}
 }
 

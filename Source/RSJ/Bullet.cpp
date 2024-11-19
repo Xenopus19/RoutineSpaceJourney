@@ -15,12 +15,18 @@ ABullet::ABullet()
 	ProjectileComponent->MaxSpeed = 8500;
 
 	ContactDamage = CreateDefaultSubobject<UContactDamageComponent>(TEXT("ContactDamage"));
+	ContactDamage->OnHitEvent.AddDynamic(this, &ABullet::OnBulletHit);
 }
 
 void ABullet::BeginPlay()
 {
 	Super::BeginPlay();
 	
+}
+
+void ABullet::OnBulletHit()
+{
+	Destroy();
 }
 
 void ABullet::Tick(float DeltaTime)
