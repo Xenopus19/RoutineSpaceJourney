@@ -2,6 +2,7 @@
 
 #include "RSJGameMode.h"
 #include "RSJCharacter.h"
+#include "RSJGameState.h"
 #include "UObject/ConstructorHelpers.h"
 
 ARSJGameMode::ARSJGameMode()
@@ -12,4 +13,5 @@ ARSJGameMode::ARSJGameMode()
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
+	GameStateClass = ARSJGameState::StaticClass();
 }
