@@ -33,6 +33,7 @@ void URSJHealthComponent::AddHealth(float DeltaHealth)
 void URSJHealthComponent::BeginPlay()
 {
 	Super::BeginPlay();
+	Health = MaxHealth;
 }
 
 
@@ -40,7 +41,10 @@ void URSJHealthComponent::BeginPlay()
 void URSJHealthComponent::HandleHealthChange(float OldHealth, float NewHealth)
 {
 	OnHealthChangedEvent.Broadcast(OldHealth, NewHealth);
-	OnDeathEvent.Broadcast(GetOwner());
+	if (NewHealth <= 0)
+	{
+		OnDeathEvent.Broadcast(GetOwner());
+	}
 }
 
 void URSJHealthComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
