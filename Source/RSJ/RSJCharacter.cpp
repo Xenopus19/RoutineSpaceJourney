@@ -1,4 +1,3 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "RSJCharacter.h"
 #include "Engine/LocalPlayer.h"
@@ -47,8 +46,7 @@ ARSJCharacter::ARSJCharacter()
 }
 
 void ARSJCharacter::BeginPlay()
-{
-	// Call the base class  
+{ 
 	Super::BeginPlay();
 
 	FActorSpawnParameters SpawnParams;
@@ -69,7 +67,6 @@ void ARSJCharacter::BeginPlay()
 
 void ARSJCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
-	// Add Input Mapping Context
 	if (APlayerController* PlayerController = Cast<APlayerController>(GetController()))
 	{
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
@@ -78,17 +75,11 @@ void ARSJCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 		}
 	}
 	
-	// Set up action bindings
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent)) {
 		
-		//EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ACharacter::Jump);
-		//EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
-
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ARSJCharacter::Move);
 
 		EnhancedInputComponent->BindAction(ShootAction, ETriggerEvent::Ongoing, this, &ARSJCharacter::Shoot);
-
-		//EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ARSJCharacter::Look);
 	}
 	else
 	{
@@ -98,22 +89,17 @@ void ARSJCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 
 void ARSJCharacter::Move(const FInputActionValue& Value)
 {
-	// input is a Vector2D
 	FVector2D MovementVector = Value.Get<FVector2D>();
 
 	if (Controller != nullptr)
 	{
-		// find out which way is forward
 		const FRotator Rotation = Controller->GetControlRotation();
 		const FRotator YawRotation(0, Rotation.Yaw, 0);
 
-		// get forward vector
 		const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
 	
-		// get right vector 
 		const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 
-		// add movement 
 		AddMovementInput(ForwardDirection, MovementVector.X);
 		AddMovementInput(RightDirection, -1*MovementVector.Y);
 	}
@@ -121,12 +107,10 @@ void ARSJCharacter::Move(const FInputActionValue& Value)
 
 void ARSJCharacter::Look(const FInputActionValue& Value)
 {
-	// input is a Vector2D
 	FVector2D LookAxisVector = Value.Get<FVector2D>();
 
 	if (Controller != nullptr)
 	{
-		// add yaw and pitch input to controller
 		AddControllerYawInput(LookAxisVector.X);
 		AddControllerPitchInput(LookAxisVector.Y);
 	}

@@ -42,7 +42,6 @@ void UShootingComponent::Shoot()
             if (SpawnedBullet)
             {
                 TimeSinceLastShot = 0.0f;
-                GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("This is an on screen message!"));
             }
         }
     }
