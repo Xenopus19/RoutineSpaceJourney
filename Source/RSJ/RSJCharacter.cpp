@@ -9,6 +9,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "Blueprint/UserWidget.h"
 #include "StaticCameraActor.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
@@ -61,6 +62,15 @@ void ARSJCharacter::BeginPlay()
 		{
 			PlayerController->SetViewTargetWithBlend(StaticCamera, 0.0f);
 			PlayerController->bAutoManageActiveCameraTarget = false;
+		}
+	}
+
+	if (IsValid(WidgetClass))
+	{
+		UserWidget = Cast<URSJUserWidget>(CreateWidget(GetWorld(), WidgetClass));
+		if (UserWidget)
+		{
+			UserWidget->AddToViewport();
 		}
 	}
 }

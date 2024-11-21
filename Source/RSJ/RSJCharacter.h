@@ -5,6 +5,7 @@
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
 #include "ShootingComponent.h"
+#include "RSJUserWidget.h"
 #include "RSJHealthComponent.h"
 #include "RSJCharacter.generated.h"
 
@@ -67,6 +68,12 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	UStaticMeshComponent* Model;
+
+	UPROPERTY(EditAnywhere, Category = "UserWidget")
+	TSubclassOf<UUserWidget> WidgetClass;
+
+	UPROPERTY(VisibleInstanceOnly, Category="UserWidget")
+	class URSJUserWidget* UserWidget;
 private:
 	AStaticCameraActor* StaticCamera;
 

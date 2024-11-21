@@ -28,6 +28,11 @@ void URSJHealthComponent::AddHealth(float DeltaHealth)
 	HandleHealthChange(old, Health);
 }
 
+float URSJHealthComponent::GetHealthNormalised()
+{
+	return Health/MaxHealth;
+}
+
 
 
 void URSJHealthComponent::BeginPlay()

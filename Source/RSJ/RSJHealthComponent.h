@@ -24,6 +24,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void AddHealth(float DeltaHealth);
 
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	float GetHealthNormalised();
+
 	UPROPERTY(BlueprintAssignable, Category = "Events")
 	FOnHealthChanged OnHealthChangedEvent;
 
