@@ -16,6 +16,7 @@ void URSJUserWidget::NativeConstruct()
             ARSJCharacter* Player = Cast<ARSJCharacter>(PlayerPawn);
             PlayerHealth = Player->FindComponentByClass<URSJHealthComponent>();
             PlayerHealth->OnHealthChangedEvent.AddDynamic(this, &URSJUserWidget::OnHealthChanged);
+            PlayerHealth->OnDeathEvent.AddDynamic(this, &URSJUserWidget::OnDeath);
         }
     }
 

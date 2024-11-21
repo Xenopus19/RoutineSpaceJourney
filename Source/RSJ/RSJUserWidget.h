@@ -22,6 +22,9 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnHealthChanged(float OldHealth, float NewHealth);
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnDeath(AActor* OwningActor);
+
 	UPROPERTY(BlueprintReadOnly)
 	URSJHealthComponent* PlayerHealth;
 };
