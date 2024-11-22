@@ -10,6 +10,7 @@ void URSJUserWidget::NativeConstruct()
     APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0); 
     if (PlayerController)
     {
+        PlayerController->bShowMouseCursor = true;
         APawn* PlayerPawn = PlayerController->GetPawn();
         if (PlayerPawn)
         {
@@ -28,6 +29,15 @@ void URSJUserWidget::NativeConstruct()
         {
             RSJGameState->OnScoreChangedEvent.AddDynamic(this, &URSJUserWidget::OnScoreChanged);
         }
+    }
+}
+
+void URSJUserWidget::SetPause(bool IsPaused)
+{
+    APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
+    if (PlayerController != NULL)
+    {
+        PlayerController->SetPause(IsPaused);
     }
 }
 

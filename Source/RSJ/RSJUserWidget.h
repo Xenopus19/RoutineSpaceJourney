@@ -22,6 +22,9 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnHealthChanged(float OldHealth, float NewHealth);
 
+	UFUNCTION(BlueprintCallable)
+	void SetPause(bool IsPaused);
+
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnDeath(AActor* OwningActor);
 
